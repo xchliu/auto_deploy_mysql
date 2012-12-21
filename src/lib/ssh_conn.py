@@ -1,19 +1,27 @@
 #coding utf8
-import paramiko,threading,os,sys
+import paramiko,os
+from lib import logs
+import config
+l=logs.Log()
+c=config.GlobalConfig()
+paramiko.util.log_to_file("a.txt",'ERROR')
 class ssh_conn():
     def __init__(self):
         self.ssh=paramiko.SSHClient()
     def ssh2(self,ip,username,pwd,type):
         try:
+            #print ip,username,pwd,type
             if type==1:
                 key=paramiko.RSAKey.from_private_key_file(pwd)
                 self.ssh.load_system_host_keys()
                 self.ssh.connect(ip,22,username,pkey=key,timeout=10)
             else:
                 self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                self.ssh.connect(ip,22,username,pwd,timeout=5)
+                self.ssh.connect(ip,22,username,pwd,timeout=10)
+            return True
         except Exception,ex:
-            print ex
+            l.log("CONNECTION.PROSESS",str(ex), 1)
+            return False
     def close(self):
         self.ssh.close()
     def commmad(self,cmd):
@@ -21,15 +29,33 @@ class ssh_conn():
         out=stdout.readlines()
         err=stderr.readlines()
         return out,err
-    def main(self,ip,username,pwd,type,cmd):
-        self.ssh2(ip, username,pwd,type)
-        return self.commmad(cmd)
+    def ssh_connect(self,ip,username,pwd,type,cmd):
+        if self.ssh2(ip, username,pwd,type):
+            return self.commmad(cmd)
+        else:
+            return False
 class ssh_sftp():
     def __init__(self):
-        pass
-    def ftp(self,ip,username,pwd,port,key,file):
-        self.ssh=paramiko.Transport((ip,port))
-        self.ssh.connect(username=username,password=pwd,pkey=key)
-        sftp=paramiko.SFTPClient.from_transport(self.ssh)
-        sftp.put(file,'/tmp/')
+        #self.remotedir='/tmp/'
+        self.remotedir=c.remote_path
+    def ftp(self,ip,username,pwd,port,key,localdir):
+        try:
+            transfer=paramiko.Transport((ip,port))
+            transfer.set_hexdump(False)
+            if key==None:
+                transfer.connect(username=username,password=pwd)
+            else:
+                transfer.connect(username=username,password=pwd,pkey=key)
+            files=os.listdir(localdir)
+            for lfile in files:
+                sftp=paramiko.SFTPClient.from_transport(transfer)
+                rfile=lfile
+                l.log("FILE.TRANSFER","Tranfer file: %s" % lfile,3)
+                sftp.put(os.path.join(localdir,lfile),os.path.join(self.remotedir,rfile))
+            transfer.close()
+            return True
+        except Exception,e:
+            l.log("FILE.TRANSFER",str(e),1)
+            transfer.close()
+            return False
         
