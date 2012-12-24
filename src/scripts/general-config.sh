@@ -14,14 +14,19 @@
 #       CREATED:  12/20/2012
 #      REVISION:  ---
 #===============================================================================
+main_dir='./dbtools/init_server'
+bak_dir='./dbtools/backup'
+data_old='/var/lib/mysql'
 if [[ a$1 = a ]];then
-	 pass
+	 datadir=data_old
 else
 	datadir=$1
 fi
 service mysql stop
-mv /etc/mysql/my.cnf ./my.cnf.old
-mv /tmp/my.cnf /etc/mysql/my.cnf 
+cp -r $data_old $bak_dir
+rm -f $data_old/ib*
+mv /etc/mysql/my.cnf $bak_dir/my.cnf.old
+mv $main_dir/my.cnf /etc/mysql/my.cnf
 #cp /var/lib/mysql   datadir
 #chown mysql:mysql $1
 service mysql start

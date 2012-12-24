@@ -20,7 +20,7 @@ class ssh_conn():
                 self.ssh.connect(ip,22,username,pwd,timeout=10)
             return True
         except Exception,ex:
-            l.log("CONNECTION.PROSESS",str(ex), 1)
+            l.log("CONNECTION",str(ex), 1)
             return False
     def close(self):
         self.ssh.close()
@@ -50,12 +50,12 @@ class ssh_sftp():
             for lfile in files:
                 sftp=paramiko.SFTPClient.from_transport(transfer)
                 rfile=lfile
-                l.log("FILE.TRANSFER","Tranfer file: %s" % lfile,3)
+                l.log("TRANSFER","Tranfer file: %s" % lfile,3)
                 sftp.put(os.path.join(localdir,lfile),os.path.join(self.remotedir,rfile))
             transfer.close()
             return True
         except Exception,e:
-            l.log("FILE.TRANSFER",str(e),1)
+            l.log("TRANSFER",str(e),1)
             transfer.close()
             return False
         

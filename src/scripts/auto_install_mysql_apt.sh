@@ -14,7 +14,9 @@
 #       CREATED:  12/18/2012
 #      REVISION:  ---
 #===============================================================================
-apt-get update -qq
+#dpkg --remove mysql-server mysql-server-5.5
+#rm -f /var/lib/dpkg/info/mysql*
+apt-get update -f -qq
+#apt-get upgrade -y
 export DEBIAN_FRONTEND=noninteractive
 apt-get -q -y -qq install mysql-server
-service mysql stop
