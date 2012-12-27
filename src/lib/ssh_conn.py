@@ -3,7 +3,7 @@ import paramiko,os
 from lib import logs
 import config
 l=logs.Log()
-c=config.GlobalConfig()
+c=config.GlobalConfig(1)
 paramiko.util.log_to_file("a.txt",'ERROR')
 class ssh_conn():
     def __init__(self):

@@ -1,0 +1,3 @@
+1.It failed to check whether the mysql server is already running after the general_config.sh finished cause the idb file is writing to 
+  the specified size,as a result,the user manage script always failed as the return message says that nobody listen to the port 
+2.It should be get server information both from the server manage system and  the config file .
