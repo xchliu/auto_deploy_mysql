@@ -47,7 +47,7 @@ class interactive():
             #print result[1]
             return result[0]
 def pre_config(inter):
-    cmd='mkdir dbtools dbtools/backup  dbtools/init_server/'
+    cmd='mkdir dbtools dbtools/backup  dbtools/init_server/ dbtools/up_file dbtools/down_file'
     inter.connect(cmd)
 def check_server(inter):
     cmd='sudo netstat -lnpt|grep '+str(c.port)+'|wc -l'
@@ -151,7 +151,7 @@ def main():
         else:
             l.log(models[3],stats[0],1)
     else:
-        l.log(models[3],"Service mysql failed to start after new config!! \n Abandon to init schema and user grants!!!")
+        l.log(models[3],"Service mysql failed to start after new config!! \n Abord to init schema and user grants!!!")
     exits()
 if __name__=="__main__":
     main()

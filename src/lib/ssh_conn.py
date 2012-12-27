@@ -42,10 +42,10 @@ class ssh_sftp():
         try:
             transfer=paramiko.Transport((ip,port))
             transfer.set_hexdump(False)
-            if key==None:
+            if key == '' or key is None:
                 transfer.connect(username=username,password=pwd)
             else:
-                transfer.connect(username=username,password=pwd,pkey=key)
+                transfer.connect(username=username,pkey=key)
             files=os.listdir(localdir)
             for lfile in files:
                 sftp=paramiko.SFTPClient.from_transport(transfer)
