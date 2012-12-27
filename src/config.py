@@ -21,6 +21,7 @@ class GlobalConfig():
             self.log_dir=''
             self.port=3306
         else:
+            #get config from the backend database
             pass
         
         
