@@ -8,6 +8,7 @@ The main goal of this tool is deploy a new product environment  mysql server aut
 Tasks  will be done during the whole process:
 1.Pre-config.A folder for server manage locate in the home folder,all the files used to install will be upload in server 
 folder:~/dbtools/init_server/. and its structure would be :
+
 	.
 	|-- backup
 	|   |-- my.cnf.old
