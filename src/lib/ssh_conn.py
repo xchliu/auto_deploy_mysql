@@ -43,7 +43,7 @@ class ssh_sftp():
             transfer=paramiko.Transport((ip,port))
             transfer.set_hexdump(False)
             if key == '' or key is None:
-                privatekeyfile = os.path.expanduser('~/.ssh/id_rsa.pub')
+                privatekeyfile = os.path.expanduser('~/.ssh/id_rsa')
                 mykey = paramiko.RSAKey.from_private_key_file(privatekeyfile)
                 transfer.connect(username=username,pkey=mykey)
             else:

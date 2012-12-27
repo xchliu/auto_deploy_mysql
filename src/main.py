@@ -1,7 +1,7 @@
 from lib import ssh_conn,logs
 import config 
 l=logs.Log()
-c=config.GlobalConfig()
+c=config.GlobalConfig(1)
 models={0:"GLOBAL",
         1:"CONNECTION",
         2:"TRANSFER",
@@ -151,7 +151,7 @@ def main():
         else:
             l.log(models[3],stats[0],1)
     else:
-        l.log(models[3],"Service mysql failed to start after new config!! \n Abord to init schema and user grants!!!")
+        l.log(models[3],"Service mysql failed to start after new config!! \n Abord to init schema and user grants!!!",1)
     exits()
 if __name__=="__main__":
     main()
