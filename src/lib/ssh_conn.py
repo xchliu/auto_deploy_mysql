@@ -45,7 +45,7 @@ class ssh_sftp():
             if key == '' or key is None:
                 privatekeyfile = os.path.expanduser('~/.ssh/id_rsa')
                 mykey = paramiko.RSAKey.from_private_key_file(privatekeyfile)
-                transfer.connect(username=username,pkey=mykey)
+                transfer.connect(username=username,pkey=mykey,password=pwd)
             else:
                 transfer.connect(username=username,pkey=key)
             files=os.listdir(localdir)
