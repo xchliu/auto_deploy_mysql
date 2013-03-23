@@ -10,7 +10,8 @@ models={0:"GLOBAL",
         4:"INSTALL"
         }
 stats={1:"<< FINISHED >>",
-       0:"<< FAILED >>"
+       0:"<< FAILED >>",
+       2:"<DONE>"
        }
 class interactive():
     def __init__(self,ip, username, pwd, port, key):
@@ -138,11 +139,12 @@ def main():
     l.log(models[3],"Config mysql server ...",3)
     r_conf=inter.connect("sudo /bin/bash "+c.remote_path+"general-config.sh")
     if r_conf:
-        l.log(models[3],stats[1],3)
+        l.log(models[3],stats[2],3)
     else:
         l.log(models[3],stats[0],1)
         exits()
     #schema import and define  users
+    l.log(models[0],"Sleep for 120 seconds..",3)
     time.sleep(60) 
     if not check_server(inter):
         l.log(models[3],"Import the db schema and grant users ..",3)

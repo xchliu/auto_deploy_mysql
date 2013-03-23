@@ -29,4 +29,5 @@ mv /etc/mysql/my.cnf $bak_dir/my.cnf.old
 mv $main_dir/my.cnf /etc/mysql/my.cnf
 #cp /var/lib/mysql   datadir
 #chown mysql:mysql $1
+mv $main_dir/global_config.conf ./dbtools/
 service mysql start
