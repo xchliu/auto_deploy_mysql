@@ -1,4 +1,5 @@
 from lib import ssh_conn,logs
+import time
 import config 
 l=logs.Log()
 c=config.GlobalConfig(1)
@@ -141,7 +142,8 @@ def main():
     else:
         l.log(models[3],stats[0],1)
         exits()
-    #schema import and define  users 
+    #schema import and define  users
+    time.sleep(60) 
     if not check_server(inter):
         l.log(models[3],"Import the db schema and grant users ..",3)
         user_manage(inter)
