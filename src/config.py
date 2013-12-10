@@ -10,9 +10,9 @@ class GlobalConfig():
     #server base information
             self.project_name=''
             self.server_name='test'
-            self.server_ip='10.2.25.30'
-            self.server_user='ubuntu'
-            self.server_pwd='baina178'
+            self.server_ip=''
+            self.server_user=''
+            self.server_pwd=''
             self.server_key=''
             self.server_port=22
             self.server_role='master'
